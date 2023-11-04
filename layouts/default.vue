@@ -1,9 +1,9 @@
 <script setup></script>
 
 <template>
-  <div class="home">
+  <div>
     <WebSite></WebSite>
-    <h2>home1123</h2>
+    <slot></slot>
   </div>
 </template>
 

@@ -11,5 +11,8 @@ export default defineNuxtConfig({
     public: {
       baseUrl: envData.VITE_BASE_URL
     }
+  },
+  devServer: {
+    port: 9088
   }
 })
