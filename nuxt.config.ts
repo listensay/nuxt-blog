@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@element-plus/nuxt'
   ],
   runtimeConfig: {
+    tokenSecret: process.env.TOKEN_SECRET,
     public: {
       baseUrl: envData.VITE_BASE_URL
     }

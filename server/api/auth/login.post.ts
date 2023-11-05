@@ -47,13 +47,13 @@ export default defineEventHandler(async (_event) => {
       )
 
       if (isPasswordValid) {
-        const secret = 'eifuisedfuvs'
+        const secret = useRuntimeConfig().tokenSecret
         const token = jwt.sign(
-          { username: body.username, user_id: user[0].user_id },
-          secret,
           {
-            expiresIn: '2h'
-          }
+            exp: Math.floor(Date.now() / 1000) + 60,
+            username: body.username, user_id: user[0].user_id 
+          },
+          secret
         )
 
         return successRes({ token }, '登录成功！')
