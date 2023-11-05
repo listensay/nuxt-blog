@@ -12,7 +12,6 @@ export default defineEventHandler(async (_event) => {
     }
   } catch (error) {
     await con.end()
-    console.log(error)
     return errorRes()
   }
 })

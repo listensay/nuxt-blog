@@ -1,7 +1,7 @@
 export const useMainAPI = () => {
   return {
     getWebOptions: () => {
-      return useRequestGet('/api/listen-options')
+      return useRequestGet('/listen/listen-options')
     }
   }
 }

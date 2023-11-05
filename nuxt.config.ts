@@ -6,7 +6,12 @@ const envData = loadEnv(envName, 'env') as any
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/eslint-module', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  modules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    '@element-plus/nuxt'
+  ],
   runtimeConfig: {
     public: {
       baseUrl: envData.VITE_BASE_URL
