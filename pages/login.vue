@@ -1,6 +1,11 @@
 <script setup>
-definePageMeta({
-  layout: 'login'
+import { useUserStore } from '~/store/module/user'
+const userStore = useUserStore()
+const route = useRoute()
+
+const loginFrom = ref({
+  username: '',
+  password: ''
 })
 
 const rules = reactive({
@@ -23,11 +28,26 @@ const rules = reactive({
 
 const ruleFormRef = ref()
 
+const accessToken = useCookie('accessToken', { maxAge: 60 * 60 * 24 * 1 })
+
 const submitForm = async (formEl) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      try {
+        const reuslt = await userStore.fetchLogin(loginFrom.value)
+        if (reuslt.success) {
+          ElMessage.success('登录成功')
+          userStore.token = reuslt.data.token
+          userStore.isLogin = true
+          accessToken.value = reuslt.data.token
+          formEl.resetFields()
+          navigateTo(route.query.from || '/', { replace: true })
+        } else {
+          ElMessage.error(reuslt.message)
+          formEl.resetFields()
+        }
+      } catch (error) {}
     } else {
       ElMessage.error('请检查输入！')
       // eslint-disable-next-line no-console
@@ -36,9 +56,9 @@ const submitForm = async (formEl) => {
   })
 }
 
-const loginFrom = ref({
-  username: '',
-  password: ''
+definePageMeta({
+  layout: 'login',
+  middleware: ['only-visitor']
 })
 </script>
 

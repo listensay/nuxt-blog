@@ -17,6 +17,16 @@ export default defineNuxtConfig({
       baseUrl: envData.VITE_BASE_URL
     }
   },
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config',
+    exposeConfig: false,
+    exposeLevel: 2,
+    config: {},
+    injectPosition: 'first',
+    viewer: true
+  },
+  css: ['@/assets/css/index.less'],
   devServer: {
     port: 9088
   }

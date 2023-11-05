@@ -1,8 +1,8 @@
 <script setup></script>
 
 <template>
-  <div>
-    <slot></slot>
+  <div class="userinfo">
+    <h2>userinfo</h2>
   </div>
 </template>
 
