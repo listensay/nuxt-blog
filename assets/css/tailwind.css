@@ -7,3 +7,12 @@
     background-color: #f0f0f0;
   }
 }
+
+@layer components {
+  .layout {
+    @apply flex;
+  }
+  .layout-b {
+    @apply flex justify-between;
+  }
+}

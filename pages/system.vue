@@ -6,8 +6,12 @@ definePageMeta({
 
 <template>
   <div class="system">
-    <h2>system</h2>
-    <NuxtPage></NuxtPage>
+    <div class="layout w-[1200px] mx-auto my-9">
+      <SystemMenu class="mr-4"></SystemMenu>
+      <div class="flex-1">
+        <NuxtPage></NuxtPage>
+      </div>
+    </div>
   </div>
 </template>
 
