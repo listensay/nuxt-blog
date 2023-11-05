@@ -1,3 +1,4 @@
+import Joi from 'joi'
 import jwt from 'jsonwebtoken'
 import Bcrypt from 'bcryptjs'
 
@@ -10,6 +11,18 @@ import Bcrypt from 'bcryptjs'
 export default defineEventHandler(async (_event) => {
   const body = await readBody(_event)
   const con = getDB()
+
+  // 校验数据joi
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(18).required(),
+    password: Joi.string().min(6).max(18).required()
+  })
+
+  try {
+    await schema.validateAsync(body)
+  } catch (err) {
+    return errorRes('账号或密码错误')
+  }
 
   try {
     // 查询username是否存在
