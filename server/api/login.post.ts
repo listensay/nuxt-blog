@@ -56,7 +56,7 @@ export default defineEventHandler(async (_event) => {
           secret
         )
 
-        return successRes({ token }, '登录成功！')
+        return successRes({ token : token }, '登录成功！')
       } else {
         return errorRes('账号或密码错误')
       }

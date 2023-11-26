@@ -4,8 +4,8 @@ const userStore = useUserStore()
 const route = useRoute()
 
 const loginFrom = ref({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 
 const rules = reactive({

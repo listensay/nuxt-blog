@@ -23,8 +23,10 @@ const submitForm = async (formEl) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
+      // eslint-disable-next-line no-console
       console.log('submit!')
     } else {
+      // eslint-disable-next-line no-console
       console.log('error submit!', fields)
     }
   })

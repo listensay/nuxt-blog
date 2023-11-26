@@ -8,14 +8,13 @@ export default defineEventHandler((event)=>{
   //获取token值
   let token = getHeader(event,"Authorization")
   if (token) {
-    //处理token
+    //处理token字符串
     token = token.replace("Bearer ","")
-    //秘钥
+    //获取秘钥
     let secret = useRuntimeConfig().tokenSecret
     try {
       //验证token
       var decoded = jwt.verify(token, secret);
-      console.log(decoded)
       //传递给上下文
       event.context.auth = {userinfo :decoded }
     }catch (error: any) {

@@ -1,4 +1,9 @@
 <script setup>
+import { useUserStore } from '~/store/module/user'
+
+const userStore = useUserStore()
+await userStore.fetchGetUserinfo()
+
 definePageMeta({
   middleware: ['auth']
 })

@@ -1,17 +1,23 @@
 import { useUserAPI } from "~/service/module/user"
-import { ElMessage } from 'element-plus'
 
 const userAPI = useUserAPI()
 
 export const useUserStore = defineStore('useUserStore', {
   state: () => ({
-    userinfo: '',
-    isLogin: useCookie('accessToken'),
-    token: ''
+    userinfo: null,
+    token: useCookie('accessToken')
   }),
   actions: {
     async fetchLogin(user: any) {
       return await userAPI.login(user)
+    },
+    async fetchGetUserinfo() {
+      try {
+        const result = await userAPI.getUserInfo()
+        this.userinfo = result.data
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 })

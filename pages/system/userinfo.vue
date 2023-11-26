@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+import { useUserStore } from '~/store/module/user'
+
+const userStore = useUserStore()
+await userStore.fetchGetUserinfo()
+const { userinfo } = storeToRefs(userStore)
+</script>
 
 <template>
   <div class="system-userinfo">
@@ -13,7 +19,7 @@
             />
           </div>
           <div>
-            <div class="text-lg">硅谷在逃的前端工程师</div>
+            <div class="text-lg">{{ userinfo?.username }}</div>
             <div class="text-gray-600 text-sm">lllalalala</div>
           </div>
         </div>
