@@ -8,6 +8,10 @@ export const useUserAPI = () => {
     },
     getUserInfo: () => {
       return useRequestGet('/api/auth/userinfo')
+    },
+    // TODO
+    changeUserInfo: (data: any) => {
+      return useRequestPost('/api/auth/userinfo', data)
     }
   }
 }
