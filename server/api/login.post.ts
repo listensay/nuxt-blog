@@ -35,10 +35,9 @@ export default defineEventHandler(async (event) => {
     if (result.length > 0) {
       // 校验账号密码是否正确
       const [user] = <any>(
-        await con.execute(
-          'select user_id, password from listen_users where username = ?',
-          [body.username]
-        )
+        await con.execute('select * from listen_users where username = ?', [
+          body.username
+        ])
       )
       // 解密然后校验
       const isPasswordValid = Bcrypt.compareSync(
@@ -50,13 +49,19 @@ export default defineEventHandler(async (event) => {
         const secret = useRuntimeConfig().tokenSecret
         const token = jwt.sign(
           {
-            exp: Math.floor(Date.now() / 1000) + 60,
-            username: body.username, user_id: user[0].user_id 
+            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 2,
+            username: body.username,
+            nickname: user[0].nickname,
+            email: user[0].email,
+            desc: user[0].desc,
+            avatar: user[0].avatar,
+            profile: user[0].profile,
+            create_time: user[0].create_time
           },
           secret
         )
 
-        return successRes({ token : token }, '登录成功！')
+        return successRes({ token }, '登录成功！')
       } else {
         return errorRes('账号或密码错误')
       }

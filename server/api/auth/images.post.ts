@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   if (login === 0) {
     setResponseStatus(event, 401)
-    return errorRes('请登录!')
+    return errorRes('请登录')
   }
 
   await new Promise<void>((resolve, reject) => {

@@ -1,4 +1,6 @@
 <script setup>
+import { useUserStore } from '~/store/module/user'
+
 const onBack = () => {
   navigateTo({ path: './userinfo' })
 }
@@ -10,13 +12,12 @@ const userInfo = reactive({
 })
 
 const rules = reactive({
+  avatar: [{ required: true, message: '请上传头像', trigger: 'blur' }],
   nickname: [
-    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+    { required: true, message: '请输入昵称', trigger: 'blur' },
+    { min: 3, max: 5, message: '长度3到5位', trigger: 'blur' }
   ],
-  email: [
-    { required: true, message: 'Please input Activity email', trigger: 'blur' }
-  ]
+  email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
 })
 
 const submitForm = async (formEl) => {
@@ -32,27 +33,15 @@ const submitForm = async (formEl) => {
   })
 }
 
-const resetForm = (formEl) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
+// const resetForm = (formEl) => {
+//   if (!formEl) return
+//   formEl.resetFields()
+// }
 
-const imageUrl = ref('')
+const imgUrl = ref('')
 
-const handleAvatarSuccess = (_response, uploadFile) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw)
-}
-
-const beforeAvatarUpload = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
-    return false
-  }
-  return true
-}
+const userStore = useUserStore()
+userInfo.nickname = userStore.userinfo.username
 </script>
 
 <template>
@@ -75,59 +64,23 @@ const beforeAvatarUpload = (rawFile) => {
         class="w-[450px]"
       >
         <el-form-item label="头像">
-          <el-upload
-            class="avatar-uploader border-[1px] rounded border-gray-200"
-            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-          </el-upload>
+          <AvatarImg v-model="imgUrl"></AvatarImg>
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
-          <el-input v-model="userInfo.nickname" />
+          <el-input v-model="userInfo.nickname" placeholder="请输入昵称" />
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
-          <el-input v-model="userInfo.email" />
+          <el-input v-model="userInfo.email" placeholder="请输入邮箱" />
         </el-form-item>
 
         <el-form-item>
           <el-button type="primary" @click="submitForm(ruleFormRef)">
-            Create
+            确定
           </el-button>
-          <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
 
-<style lang="less" scoped>
-.avatar-uploader .avatar {
-  width: 108px;
-  height: 108px;
-  display: block;
-}
-.avatar-uploader .el-upload {
-  border: 1px dashed var(--el-border-color);
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: var(--el-transition-duration-fast);
-}
-
-.avatar-uploader .el-upload:hover {
-  border-color: var(--el-color-primary);
-}
-
-.el-icon.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 108px;
-  height: 108px;
-  text-align: center;
-}
-</style>
+<style lang="less" scoped></style>
