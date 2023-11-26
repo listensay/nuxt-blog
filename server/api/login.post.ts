@@ -8,8 +8,8 @@ import Bcrypt from 'bcryptjs'
  * 校验账号密码，成功就生成token
  */
 
-export default defineEventHandler(async (_event) => {
-  const body = await readBody(_event)
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event)
   const con = getDB()
 
   // 校验数据joi
