@@ -8,24 +8,42 @@ const onBack = () => {
 const ruleFormRef = ref()
 const userInfo = reactive({
   nickname: '',
-  email: ''
+  email: '',
+  desc: '',
+  profile: '',
+  avatar: ''
 })
+
+const userStore = useUserStore()
+await userStore.fetchGetUserinfo()
+
+userInfo.nickname = userStore.userinfo?.nickname
+userInfo.email = userStore.userinfo?.email
+userInfo.desc = userStore.userinfo?.desc
+userInfo.profile = userStore.userinfo?.profile
+userInfo.avatar = userStore.userinfo?.avatar
 
 const rules = reactive({
   avatar: [{ required: true, message: '请上传头像', trigger: 'blur' }],
   nickname: [
     { required: true, message: '请输入昵称', trigger: 'blur' },
-    { min: 3, max: 5, message: '长度3到5位', trigger: 'blur' }
+    { min: 2, max: 5, message: '长度3到5位', trigger: 'blur' }
   ],
-  email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
+  email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+  desc: [{ required: true, message: '请输入个人介绍', trigger: 'blur' }],
+  profile: [{ required: true, message: '请输入档案', trigger: 'blur' }]
 })
 
 const submitForm = async (formEl) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      // eslint-disable-next-line no-console
-      console.log('submit!')
+      try {
+        const reuslt = await userStore.fetchChangeUserinfo(userInfo)
+        if (reuslt.success) {
+          ElMessage.success('修改成功')
+        }
+      } catch (error) {}
     } else {
       // eslint-disable-next-line no-console
       console.log('error submit!', fields)
@@ -37,11 +55,6 @@ const submitForm = async (formEl) => {
 //   if (!formEl) return
 //   formEl.resetFields()
 // }
-
-const imgUrl = ref('')
-
-const userStore = useUserStore()
-userInfo.nickname = userStore.userinfo.username
 </script>
 
 <template>
@@ -62,15 +75,23 @@ userInfo.nickname = userStore.userinfo.username
         :model="userInfo"
         :rules="rules"
         class="w-[450px]"
+        label-width="90px"
+        label-position="left"
       >
-        <el-form-item label="头像">
-          <AvatarImg v-model="imgUrl"></AvatarImg>
+        <el-form-item label="头像" prop="avatar">
+          <AvatarImg v-model="userInfo.avatar"></AvatarImg>
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="userInfo.nickname" placeholder="请输入昵称" />
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="userInfo.email" placeholder="请输入邮箱" />
+        </el-form-item>
+        <el-form-item label="个人介绍" prop="desc">
+          <el-input v-model="userInfo.desc" placeholder="请输入个人介绍" />
+        </el-form-item>
+        <el-form-item label="档案" prop="profile">
+          <el-input v-model="userInfo.profile" placeholder="请输入档案" />
         </el-form-item>
 
         <el-form-item>

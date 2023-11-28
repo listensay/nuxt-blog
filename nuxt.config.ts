@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
+    '@nuxt/image'
   ],
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,

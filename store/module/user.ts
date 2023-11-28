@@ -14,7 +14,15 @@ export const useUserStore = defineStore('useUserStore', {
     async fetchGetUserinfo() {
       try {
         const result = await userAPI.getUserInfo()
+        console.log(result)
         this.userinfo = result.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchChangeUserinfo(data: object) {
+      try {
+        return await userAPI.changeUserInfo(data)
       } catch (error) {
         console.log(error)
       }

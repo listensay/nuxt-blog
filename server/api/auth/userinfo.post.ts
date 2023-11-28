@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   // 数据验证
   const schema = Joi.object({
-    nickname: Joi.string().min(3).max(10).required(),
+    nickname: Joi.string().min(2).max(10).required(),
     email: Joi.string().email().required(),
     desc: Joi.string().min(1).max(18).required(),
     avatar: Joi.string().required(),
@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
   try {
     await schema.validateAsync(body)
   } catch (error) {
+    setResponseStatus(event, 400)
     return errorRes('数据项不完整')
   }
 
@@ -53,7 +54,8 @@ export default defineEventHandler(async (event) => {
     }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error)
+    console.log('error', error)
+    setResponseStatus(event, 500)
     return errorRes()
   } finally {
     con.end()

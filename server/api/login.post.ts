@@ -50,13 +50,7 @@ export default defineEventHandler(async (event) => {
         const token = jwt.sign(
           {
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 2,
-            username: body.username,
-            nickname: user[0].nickname,
-            email: user[0].email,
-            desc: user[0].desc,
-            avatar: user[0].avatar,
-            profile: user[0].profile,
-            create_time: user[0].create_time
+            user_id: user[0].user_id
           },
           secret
         )
