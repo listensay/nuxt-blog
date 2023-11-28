@@ -10,7 +10,7 @@ const userInfo = reactive({
   nickname: '',
   email: '',
   desc: '',
-  profile: '',
+  profile: [],
   avatar: ''
 })
 
@@ -20,7 +20,7 @@ await userStore.fetchGetUserinfo()
 userInfo.nickname = userStore.userinfo?.nickname
 userInfo.email = userStore.userinfo?.email
 userInfo.desc = userStore.userinfo?.desc
-userInfo.profile = userStore.userinfo?.profile
+userInfo.profile = JSON.parse(userStore.userinfo?.profile)
 userInfo.avatar = userStore.userinfo?.avatar
 
 const rules = reactive({
@@ -48,6 +48,20 @@ const submitForm = async (formEl) => {
       // eslint-disable-next-line no-console
       console.log('error submit!', fields)
     }
+  })
+}
+// TODO
+const removeDomain = (item) => {
+  const index = userInfo.profile.indexOf(item)
+  if (index !== -1) {
+    userInfo.profile.splice(index, 1)
+  }
+}
+
+const addDomain = () => {
+  userInfo.profile.push({
+    key: Date.now(),
+    value: ''
   })
 }
 
@@ -90,8 +104,25 @@ const submitForm = async (formEl) => {
         <el-form-item label="个人介绍" prop="desc">
           <el-input v-model="userInfo.desc" placeholder="请输入个人介绍" />
         </el-form-item>
+        {{ userinfo?.profile }}
         <el-form-item label="档案" prop="profile">
-          <el-input v-model="userInfo.profile" placeholder="请输入档案" />
+          <el-form-item
+            v-for="(profile, index) in userInfo.profile"
+            :key="profile.key"
+            :label="'档案' + index"
+            :prop="'domains.' + index + '.value'"
+            :rules="{
+              required: true,
+              message: '档案不能为空',
+              trigger: 'blur'
+            }"
+          >
+            <el-input v-model="profile.value"></el-input
+            ><el-button @click.prevent="removeDomain(profile)">删除</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="addDomain">新增域名</el-button>
+          </el-form-item>
         </el-form-item>
 
         <el-form-item>
