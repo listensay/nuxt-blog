@@ -1,11 +1,9 @@
 import { ElMessage } from 'element-plus'
-import { hash } from 'ohash'
 
 export const useRequest = async (url: any, options?: any, headers?: any) => {
   try {
     const config = useRuntimeConfig() // 3.0正式版环境变量要从useRuntimeConfig里的public拿
     const reqUrl = config.public.baseUrl + url // 你的接口地址
-    const key = hash(options + url + Date.now())
 
     const router = useRouter()
     const route = useRoute()
@@ -19,7 +17,6 @@ export const useRequest = async (url: any, options?: any, headers?: any) => {
     const { data } = await useFetch(reqUrl, {
       ...options,
       headers: customHeaders,
-      key,
       onResponseError({ response }) {
         switch (response.status) {
           case 400:

@@ -53,7 +53,6 @@ export default defineEventHandler(async (event) => {
       return successRes('修改成功')
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log('error', error)
     setResponseStatus(event, 500)
     return errorRes()

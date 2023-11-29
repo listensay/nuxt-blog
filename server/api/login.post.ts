@@ -63,7 +63,6 @@ export default defineEventHandler(async (event) => {
       return errorRes('账号或密码错误')
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log(error)
     return errorRes()
   } finally {

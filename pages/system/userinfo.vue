@@ -3,6 +3,7 @@ import { useUserStore } from '~/store/module/user'
 
 const userStore = useUserStore()
 await userStore.fetchGetUserinfo()
+
 const { userinfo } = storeToRefs(userStore)
 </script>
 

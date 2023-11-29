@@ -17,11 +17,11 @@ const userInfo = reactive({
 const userStore = useUserStore()
 await userStore.fetchGetUserinfo()
 
-userInfo.nickname = userStore.userinfo?.nickname
-userInfo.email = userStore.userinfo?.email
-userInfo.desc = userStore.userinfo?.desc
-userInfo.profile = JSON.parse(userStore.userinfo?.profile)
-userInfo.avatar = userStore.userinfo?.avatar
+userInfo.nickname = userStore.userinfo.nickname
+userInfo.email = userStore.userinfo.email
+userInfo.desc = userStore.userinfo.desc
+userInfo.profile = JSON.parse(userStore.userinfo.profile)
+userInfo.avatar = userStore.userinfo.avatar
 
 const rules = reactive({
   avatar: [{ required: true, message: '请上传头像', trigger: 'blur' }],
@@ -45,30 +45,35 @@ const submitForm = async (formEl) => {
         }
       } catch (error) {}
     } else {
-      // eslint-disable-next-line no-console
       console.log('error submit!', fields)
     }
   })
 }
 // TODO
-const removeDomain = (item) => {
+const removeProfile = (item) => {
   const index = userInfo.profile.indexOf(item)
   if (index !== -1) {
     userInfo.profile.splice(index, 1)
   }
 }
 
-const addDomain = () => {
+const addProfile = () => {
   userInfo.profile.push({
-    key: Date.now(),
-    value: ''
+    url: '',
+    name: '',
+    icon: ''
   })
 }
 
+const options = ref([
+  { value: 1, label: '图标' },
+  { value: 2, label: '图片' }
+])
 // const resetForm = (formEl) => {
 //   if (!formEl) return
 //   formEl.resetFields()
 // }
+onMounted(() => {})
 </script>
 
 <template>
@@ -88,8 +93,7 @@ const addDomain = () => {
         ref="ruleFormRef"
         :model="userInfo"
         :rules="rules"
-        class="w-[550px]"
-        label-width="auto"
+        label-width="100"
         label-position="left"
       >
         <el-form-item label="头像" prop="avatar">
@@ -104,40 +108,41 @@ const addDomain = () => {
         <el-form-item label="个人介绍" prop="desc">
           <el-input v-model="userInfo.desc" placeholder="请输入个人介绍" />
         </el-form-item>
-        {{ userinfo?.profile }}
         <el-form-item label="社交档案" prop="profile">
           <el-form-item
             v-for="(profile, index) in userInfo.profile"
             :key="profile.key"
-            :label="'社交档案 ' + index + ':'"
-            :prop="'domains.' + index + '.value'"
-            :rules="{
-              required: true,
-              message: '档案不能为空',
-              trigger: 'blur'
-            }"
+            :label="index + 1 + ' : '"
+            label-width="40"
           >
-            <div class="flex mb-2">
-              <el-input v-model="profile.value" class="mx-2"></el-input>
+            <div class="flex items-center mb-4">
+              <el-input v-model="profile.name" placeholder="名称"></el-input>
               <el-select
-                v-model="value"
-                class="m-2"
+                v-model="profile.icon"
                 placeholder="Select"
-                size="large"
+                class="mx-2 flex-shrink-0"
               >
                 <el-option
                   v-for="item in options"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                /> </el-select
-              ><el-button @click.prevent="removeDomain(profile)"
+                />
+              </el-select>
+              <el-input
+                v-model="profile.url"
+                class="mr-2"
+                placeholder="url"
+              ></el-input>
+              <el-button type="danger" @click.prevent="removeProfile(profile)"
                 >删除</el-button
               >
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button @click="addDomain">新增社交档案</el-button>
+            <el-button type="success" @click="addProfile"
+              >新增社交档案</el-button
+            >
           </el-form-item>
         </el-form-item>
 

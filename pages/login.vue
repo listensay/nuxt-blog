@@ -50,7 +50,6 @@ const submitForm = async (formEl) => {
       } catch (error) {}
     } else {
       ElMessage.error('请检查输入！')
-      // eslint-disable-next-line no-console
       console.log('error submit!', fields)
     }
   })
