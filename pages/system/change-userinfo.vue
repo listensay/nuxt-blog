@@ -88,8 +88,8 @@ const addDomain = () => {
         ref="ruleFormRef"
         :model="userInfo"
         :rules="rules"
-        class="w-[450px]"
-        label-width="90px"
+        class="w-[550px]"
+        label-width="auto"
         label-position="left"
       >
         <el-form-item label="头像" prop="avatar">
@@ -105,11 +105,11 @@ const addDomain = () => {
           <el-input v-model="userInfo.desc" placeholder="请输入个人介绍" />
         </el-form-item>
         {{ userinfo?.profile }}
-        <el-form-item label="档案" prop="profile">
+        <el-form-item label="社交档案" prop="profile">
           <el-form-item
             v-for="(profile, index) in userInfo.profile"
             :key="profile.key"
-            :label="'档案' + index"
+            :label="'社交档案 ' + index + ':'"
             :prop="'domains.' + index + '.value'"
             :rules="{
               required: true,
@@ -117,11 +117,27 @@ const addDomain = () => {
               trigger: 'blur'
             }"
           >
-            <el-input v-model="profile.value"></el-input
-            ><el-button @click.prevent="removeDomain(profile)">删除</el-button>
+            <div class="flex mb-2">
+              <el-input v-model="profile.value" class="mx-2"></el-input>
+              <el-select
+                v-model="value"
+                class="m-2"
+                placeholder="Select"
+                size="large"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                /> </el-select
+              ><el-button @click.prevent="removeDomain(profile)"
+                >删除</el-button
+              >
+            </div>
           </el-form-item>
           <el-form-item>
-            <el-button @click="addDomain">新增域名</el-button>
+            <el-button @click="addDomain">新增社交档案</el-button>
           </el-form-item>
         </el-form-item>
 
