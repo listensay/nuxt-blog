@@ -10,6 +10,7 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true })
 }
 
+// 上传文件配置
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
     cb(null, uploadDir)

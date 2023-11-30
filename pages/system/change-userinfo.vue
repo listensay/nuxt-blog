@@ -36,6 +36,8 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
   if (!formEl) return
+  console.log(123)
+
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       try {
@@ -49,7 +51,6 @@ const submitForm = async (formEl) => {
     }
   })
 }
-// TODO
 const removeProfile = (item) => {
   const index = userInfo.profile.indexOf(item)
   if (index !== -1) {
@@ -114,6 +115,11 @@ onMounted(() => {})
             :key="profile.key"
             :label="index + 1 + ' : '"
             label-width="40"
+            :rules="{
+              required: true,
+              message: 'domain can not be null',
+              trigger: 'blur'
+            }"
           >
             <div class="flex items-center mb-4">
               <el-input v-model="profile.name" placeholder="名称"></el-input>
@@ -130,9 +136,9 @@ onMounted(() => {})
                 />
               </el-select>
               <el-input
-                v-model="profile.url"
+                v-model="profile.content"
                 class="mr-2"
-                placeholder="url"
+                placeholder="内容"
               ></el-input>
               <el-button type="danger" @click.prevent="removeProfile(profile)"
                 >删除</el-button

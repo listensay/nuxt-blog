@@ -17,6 +17,7 @@ export const useRequest = async (url: any, options?: any, headers?: any) => {
     const { data } = await useFetch(reqUrl, {
       ...options,
       headers: customHeaders,
+      watch: false,
       onResponseError({ response }) {
         switch (response.status) {
           case 400:

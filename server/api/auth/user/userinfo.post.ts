@@ -24,12 +24,13 @@ export default defineEventHandler(async (event) => {
     email: Joi.string().email().required(),
     desc: Joi.string().min(1).max(18).required(),
     avatar: Joi.string().required(),
-    profile: Joi.string().required()
+    profile: Joi.array().required()
   })
 
   try {
     await schema.validateAsync(body)
   } catch (error) {
+    console.log(error)
     setResponseStatus(event, 400)
     return errorRes('数据项不完整')
   }
@@ -37,14 +38,14 @@ export default defineEventHandler(async (event) => {
   try {
     const [rows] = <any>(
       await con.execute(
-        'UPDATE `listen_users` SET `nickname`=?, `email`=?, `desc`=?, `avatar`=?, `profile`=? WHERE `username`=?',
+        'UPDATE `listen_users` SET `nickname`=?, `email`=?, `desc`=?, `avatar`=?, `profile`=? WHERE `user_id`=?',
         [
           body.nickname,
           body.email,
           body.desc,
           body.avatar,
           body.profile,
-          userinfo.username
+          userinfo.user_id
         ]
       )
     )
