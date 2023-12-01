@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
   const userinfo = isLogin(event)
 
   if (userinfo === 0) {
-    return errorRes('请登录')
+    setResponseStatus(event, 401)
+    return errorRes('请登录', 401)
   }
 
   /**
@@ -32,7 +33,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.log(error)
     setResponseStatus(event, 400)
-    return errorRes('参数有误')
+    return errorRes('参数有误', 400)
   }
 
   try {
@@ -56,7 +57,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.log('error', error)
     setResponseStatus(event, 500)
-    return errorRes()
+    return errorRes('服务器错误', 500)
   } finally {
     con.end()
   }

@@ -8,7 +8,7 @@ export default defineEventHandler(async (_event) => {
   const userinfo = isLogin(_event)
   if (userinfo === 0) {
     setResponseStatus(_event, 401)
-    return errorRes('请登录')
+    return errorRes('请登录', 401)
   }
 
   const schema = Joi.object({
@@ -20,7 +20,7 @@ export default defineEventHandler(async (_event) => {
   } catch (error) {
     console.log(error)
     setResponseStatus(_event, 400)
-    return errorRes('参数有误')
+    return errorRes('参数有误', 400)
   }
 
   try {
@@ -32,7 +32,7 @@ export default defineEventHandler(async (_event) => {
 
     if (rows.length > 0) {
       setResponseStatus(_event, 400)
-      return errorRes('分类已存在')
+      return errorRes('分类已存在', 400)
     }
 
     const [row] = <any>await con.execute(
@@ -45,14 +45,14 @@ export default defineEventHandler(async (_event) => {
 
     if (row.affectedRows === 0) {
       setResponseStatus(_event, 400)
-      return errorRes('创建失败')
+      return errorRes('创建失败', 400)
     }
 
     return successRes(body, '创建成功')
   } catch (error) {
     console.log(error)
     setResponseStatus(_event, 500)
-    return errorRes()
+    return errorRes('服务器错误', 500)
   } finally {
     con.end()
   }

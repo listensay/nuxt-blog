@@ -7,9 +7,9 @@ export const successRes = (data: any, message: String = 'ok') => {
   }
 }
 
-export const errorRes = (message: String = '服务器错误') => {
+export const errorRes = (message: String = '服务器错误', code: number) => {
   return {
-    code: 500,
+    code,
     message,
     success: false
   }
