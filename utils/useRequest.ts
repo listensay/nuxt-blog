@@ -21,7 +21,7 @@ export const useRequest = async (url: any, options?: any, headers?: any) => {
       onResponseError({ response }) {
         switch (response.status) {
           case 400:
-            ElMessage.error('参数错误')
+            ElMessage.error('请求错误')
             break
           case 401:
             ElMessage.error('没有访问权限')

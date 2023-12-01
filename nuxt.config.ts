@@ -5,6 +5,9 @@ const envName = envScript?.[envScript.length - 1] || ''
 const envData = loadEnv(envName, 'env') as any
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/eslint-module',

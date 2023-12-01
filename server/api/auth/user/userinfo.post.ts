@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.log(error)
     setResponseStatus(event, 400)
-    return errorRes('数据项不完整')
+    return errorRes('参数有误')
   }
 
   try {
