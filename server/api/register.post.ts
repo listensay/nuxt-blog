@@ -2,7 +2,7 @@
 // import Bcrypt from 'bcryptjs'
 
 export default defineEventHandler((_event) => {
-  return errorRes('暂未开放')
+  return errorRes('暂未开放', 500)
   // const body = await readBody(event)
   // // 校验数据joi
   // const schema = Joi.object({

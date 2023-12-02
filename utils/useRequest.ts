@@ -1,6 +1,6 @@
 import { ElMessage } from 'element-plus'
 
-export const useRequest = async (url: any, options?: any, headers?: any) => {
+export const useRequest = async (url: any, options?: any) => {
   try {
     const config = useRuntimeConfig() // 3.0正式版环境变量要从useRuntimeConfig里的public拿
     const reqUrl = config.public.baseUrl + url // 你的接口地址
@@ -10,8 +10,7 @@ export const useRequest = async (url: any, options?: any, headers?: any) => {
 
     // 可以设置默认headers例如
     const customHeaders = {
-      Authorization: useCookie('accessToken').value,
-      ...headers
+      Authorization: useCookie('accessToken').value
     }
 
     const { data } = await useFetch(reqUrl, {
@@ -21,7 +20,7 @@ export const useRequest = async (url: any, options?: any, headers?: any) => {
       onResponseError({ response }) {
         switch (response.status) {
           case 400:
-            ElMessage.error('请求错误')
+            ElMessage.error(response._data.message)
             break
           case 401:
             ElMessage.error('没有访问权限')

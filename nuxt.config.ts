@@ -18,6 +18,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,
+    DATABASE_URL: 'mysql://root:123456@localhost:3306/test',
     public: {
       baseUrl: envData.VITE_BASE_URL
     }

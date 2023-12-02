@@ -15,7 +15,7 @@ const currentTab = route.fullPath.split('/')
     >
       <el-menu-item index="./userinfo">
         <el-icon><HomeFilled /></el-icon>
-        <span>首页</span>
+        <span>仪表盘</span>
       </el-menu-item>
       <el-sub-menu index="./article">
         <template #title>

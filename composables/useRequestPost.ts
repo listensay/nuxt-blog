@@ -1,3 +1,3 @@
-export const useRequestPost = (url: string, params?: any, headers?: any) => {
-  return useRequest(url, { method: 'post', body: params }, headers)
+export const useRequestPost = (url: string, params?: any) => {
+  return useRequest(url, { method: 'post', body: params })
 }
