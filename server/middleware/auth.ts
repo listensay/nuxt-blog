@@ -16,6 +16,7 @@ export default defineEventHandler((event)=>{
       //验证token
       var decoded = jwt.verify(token, secret);
       //传递给上下文
+      console.log(decoded)
       event.context.auth = {userinfo :decoded }
     }catch (error: any) {
       console.log('jwt 解码错误', error.message)

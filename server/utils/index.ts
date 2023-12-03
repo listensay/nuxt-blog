@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
  * @return {number}
  */
 export const isLogin = (event: any) => {
-  return event.context.auth ? event.context.auth.userinfo : 0
+  return event.context.auth ? event.context.auth.userinfo.uid : 0
 }
 
 /**
