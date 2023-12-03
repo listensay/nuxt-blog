@@ -21,7 +21,7 @@ const { userinfo } = storeToRefs(userStore)
           </div>
           <div>
             <div class="text-lg">{{ userinfo.nickname }}</div>
-            <div class="text-gray-600 text-sm">lllalalala</div>
+            <div class="text-gray-600 text-sm">{{ userinfo.desc }}</div>
           </div>
         </div>
         <div>

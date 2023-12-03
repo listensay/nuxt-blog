@@ -1,12 +1,15 @@
 // 创建分类
 import Joi from 'joi'
+import {
+  createImageCategory,
+  getImageCategoryByName
+} from '~/server/utils/prisma/imagesCategory'
 
 export default defineEventHandler(async (_event) => {
   const body = await readBody(_event)
-  const con = getDB()
 
-  const userinfo = isLogin(_event)
-  if (userinfo === 0) {
+  const uid = isLogin(_event)
+  if (uid === 0) {
     setResponseStatus(_event, 401)
     return errorRes('请登录', 401)
   }
@@ -24,36 +27,25 @@ export default defineEventHandler(async (_event) => {
   }
 
   try {
-    const [rows] = <any>(
-      await con.execute(`select * from listen_images_category where name = ?`, [
-        body.name
-      ])
-    )
-
-    if (rows.length > 0) {
+    const category = await getImageCategoryByName(body.name)
+    if (category) {
       setResponseStatus(_event, 400)
       return errorRes('分类已存在', 400)
     }
 
-    const [row] = <any>await con.execute(
-      `
-      INSERT INTO listen_images_category (name)
-      VALUES (?)
-    `,
-      [body.name]
-    )
+    const result = await createImageCategory({
+      name: body.name
+    })
 
-    if (row.affectedRows === 0) {
-      setResponseStatus(_event, 400)
-      return errorRes('创建失败', 400)
+    if (!result) {
+      setResponseStatus(_event, 500)
+      return errorRes('创建失败', 500)
     }
 
-    return successRes(body, '创建成功')
+    return successRes('创建成功')
   } catch (error) {
     console.log(error)
     setResponseStatus(_event, 500)
     return errorRes('服务器错误', 500)
-  } finally {
-    con.end()
   }
 })

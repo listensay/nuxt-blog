@@ -1,11 +1,12 @@
+import { getImageCategory } from '~/server/utils/prisma/imagesCategory'
+
 export default defineEventHandler(async (_event) => {
   const query = <any>getQuery(_event)
-  const con = getDB()
 
   try {
-    const userinfo = isLogin(_event)
+    const uid = isLogin(_event)
 
-    if (userinfo === 0) {
+    if (uid === 0) {
       setResponseStatus(_event, 401)
       return errorRes('请登录', 401)
     }
@@ -15,30 +16,18 @@ export default defineEventHandler(async (_event) => {
       query.pageSize = 10
     }
 
-    const offset = (query.pageNumber - 1) * query.pageSize
-
-    const [rows] = <any>(
-      await con.execute(
-        `select * from listen_images_category LIMIT ? OFFSET ?`,
-        [query.pageSize, offset]
-      )
-    )
-
-    const [total] = <any>(
-      await con.execute(`select count(*) as total from listen_images_category`)
-    )
+    const category = await getImageCategory(query.pageNumber, query.pageSize)
+    const total = await usePrisma.imagesCategory.findMany()
 
     return successRes({
-      list: rows,
+      list: category,
       pageNumber: query.pageNumber,
       pageSize: query.pageSize,
-      total: total[0].total
+      total: total.length
     })
   } catch (error) {
     console.log(error)
     setResponseStatus(_event, 500)
     return errorRes('服务器错误', 500)
-  } finally {
-    con.end()
   }
 })

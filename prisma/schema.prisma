@@ -18,3 +18,19 @@ model User {
   desc String?
   create_time DateTime? @default(now())
 }
+
+model ImagesCategory {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  create_time DateTime? @default(now())
+  images Images[] // 添加这一行
+}
+
+model Images {
+  id    Int     @id @default(autoincrement())
+  name  String
+  url String
+  category ImagesCategory @relation(fields: [category_id], references: [id])
+  category_id Int
+  create_time DateTime? @default(now())
+}
