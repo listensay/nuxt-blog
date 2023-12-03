@@ -14,13 +14,13 @@ const { userinfo } = storeToRefs(userStore)
         <div class="flex items-center">
           <div class="photo">
             <NuxtImg
-              :src="userinfo?.avatar"
+              :src="userinfo.avatar"
               alt="avatar"
               class="w-14 rounded-full mr-3"
             />
           </div>
           <div>
-            <div class="text-lg">{{ userinfo?.nickname }}</div>
+            <div class="text-lg">{{ userinfo.nickname }}</div>
             <div class="text-gray-600 text-sm">lllalalala</div>
           </div>
         </div>

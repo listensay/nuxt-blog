@@ -41,7 +41,10 @@ const submitForm = async (formEl) => {
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       try {
-        const reuslt = await userStore.fetchChangeUserinfo(userInfo)
+        const reuslt = await userStore.fetchChangeUserinfo({
+          ...userInfo,
+          profile: JSON.stringify(userInfo.profile)
+        })
         if (reuslt.success) {
           ElMessage.success('修改成功')
         }

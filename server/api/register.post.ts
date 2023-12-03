@@ -10,7 +10,7 @@ export default defineEventHandler(async (_event) => {
   const body = await readBody(_event)
   // 校验数据joi
   const schema = Joi.object({
-    username: Joi.string().min(3).max(18).required(),
+    username: Joi.string().min(2).max(18).required(),
     password: Joi.string().min(6).max(18).required(),
     nickname: Joi.string().min(2).max(10).required(),
     email: Joi.string().email().required()

@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
     return successRes(user)
   } catch (error) {
-    console.log('error ===== ', error)
+    console.log('error', error)
     setResponseStatus(event, 500)
     return errorRes('服务器错误', 500)
   }

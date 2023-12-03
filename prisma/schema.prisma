@@ -13,6 +13,8 @@ model User {
   nickname String
   email String?  @unique
   password String
-  profile String?
+  profile String? @default("[]")
+  avatar String? @default("images/avatar.png")
+  desc String?
   create_time DateTime? @default(now())
 }

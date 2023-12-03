@@ -1,12 +1,10 @@
 import Joi from 'joi'
+import { updateUser } from '~/server/utils/prisma/user'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const con = getDB()
-
-  const userinfo = isLogin(event)
-
-  if (userinfo === 0) {
+  const uid = isLogin(event)
+  if (uid === 0) {
     setResponseStatus(event, 401)
     return errorRes('请登录', 401)
   }
@@ -25,7 +23,7 @@ export default defineEventHandler(async (event) => {
     email: Joi.string().email().required(),
     desc: Joi.string().min(1).max(18).required(),
     avatar: Joi.string().required(),
-    profile: Joi.array().required()
+    profile: Joi.string().required()
   })
 
   try {
@@ -37,28 +35,37 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const [rows] = <any>(
-      await con.execute(
-        'UPDATE `listen_users` SET `nickname`=?, `email`=?, `desc`=?, `avatar`=?, `profile`=? WHERE `user_id`=?',
-        [
-          body.nickname,
-          body.email,
-          body.desc,
-          body.avatar,
-          body.profile,
-          userinfo.user_id
-        ]
-      )
-    )
-
-    if (rows.affectedRows === 1) {
-      return successRes('修改成功')
+    // 查询用户是否存在
+    const userinfo = await getUserById(uid)
+    if (!userinfo) {
+      setResponseStatus(event, 400)
+      return errorRes('用户不存在', 400)
     }
+    // 判断邮箱是否存在
+    const emailResult = await getUserByEmail(body.email)
+    if (emailResult && emailResult.id !== uid) {
+      setResponseStatus(event, 400)
+      return errorRes('邮箱已存在', 400)
+    }
+
+    // 更新数据
+    const user = await updateUser(uid, {
+      nickname: body.nickname,
+      email: body.email,
+      desc: body.desc,
+      avatar: body.avatar,
+      profile: body.profile
+    })
+
+    if (!user) {
+      setResponseStatus(event, 500)
+      return errorRes('更新失败', 500)
+    }
+
+    return successRes('修改成功')
   } catch (error) {
     console.log('error', error)
     setResponseStatus(event, 500)
     return errorRes('服务器错误', 500)
-  } finally {
-    con.end()
   }
 })
