@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import jwt from 'jsonwebtoken'
-import Bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 
 /**
  * 接收前端传过来的username，password
@@ -10,7 +10,6 @@ import Bcrypt from 'bcryptjs'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const con = getDB()
 
   // 校验数据joi
   const schema = Joi.object({
@@ -21,51 +20,35 @@ export default defineEventHandler(async (event) => {
   try {
     await schema.validateAsync(body)
   } catch (err) {
-    return errorRes('账号或密码错误')
+    return errorRes('用户名或密码格式不正确', 400)
   }
 
   try {
     // 查询username是否存在
-    const [result] = <any>(
-      await con.execute(
-        'select username from listen_users where username = ?',
-        [body.username]
-      )
-    )
-    if (result.length > 0) {
-      // 校验账号密码是否正确
-      const [user] = <any>(
-        await con.execute('select * from listen_users where username = ?', [
-          body.username
-        ])
-      )
-      // 解密然后校验
-      const isPasswordValid = Bcrypt.compareSync(
-        body.password,
-        user[0].password
-      )
-
-      if (isPasswordValid) {
-        const secret = useRuntimeConfig().tokenSecret
-        const token = jwt.sign(
-          {
-            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 2,
-            user_id: user[0].user_id
-          },
-          secret
-        )
-
-        return successRes({ token }, '登录成功！')
-      } else {
-        return errorRes('账号或密码错误')
-      }
-    } else {
-      return errorRes('账号或密码错误')
+    const user = await getUserByUsername(body.username)
+    if (!user) {
+      return errorRes('用户名不存在', 400)
     }
+
+    // 校验账号密码是否正确
+    const isPasswordValid = bcrypt.compareSync(body.password, user.password)
+
+    if (isPasswordValid) {
+      const secret = useRuntimeConfig().tokenSecret
+      const token = jwt.sign(
+        {
+          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
+          uid: user.id
+        },
+        secret
+      )
+
+      return successRes({ token }, '登录成功！')
+    }
+
+    return errorRes('账号或密码错误', 400)
   } catch (error) {
     console.log(error)
-    return errorRes()
-  } finally {
-    con.end()
+    return errorRes('服务器错误', 500)
   }
 })
