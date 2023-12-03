@@ -36,7 +36,6 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
   if (!formEl) return
-  console.log(123)
 
   await formEl.validate(async (valid, fields) => {
     if (valid) {

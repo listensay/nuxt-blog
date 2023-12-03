@@ -88,7 +88,7 @@ const submitForm = async (formEl) => {
 </script>
 
 <template>
-  <div class="images-category-form">
+  <div class="images-upload-form">
     <el-dialog
       v-model="dialogVisible"
       :title="title"

@@ -27,6 +27,7 @@ export const useImagesStore = defineStore('useImagesStore', {
         console.log(error)
       }
     },
+    // 修改图片分类
     async fetchUpdateImageCategory(data: any) {
       try {
         const result = await useImageCategoryAPI().update(data)
@@ -35,6 +36,16 @@ export const useImagesStore = defineStore('useImagesStore', {
       } catch (error) {
         console.log(error)
       }
-    }
+    },
+    // 删除图片分类
+    async fetchDeleteImageCategory(id: string) {
+      try {
+        const result = await useImageCategoryAPI().delete(id)
+        await this.fetchGetImagesCategory()
+        return result
+      } catch (error) {
+        console.log(error)
+      }
+    },
   }
 })
