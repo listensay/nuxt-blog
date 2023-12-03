@@ -1,6 +1,7 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 全栈开发
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 技术栈
+Nuxt3，Pinia，Element-plus，Tailwindcss，Mysql，Prisma，JWT...
 
 ## Setup
 
