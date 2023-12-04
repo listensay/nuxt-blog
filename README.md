@@ -1,11 +1,13 @@
 # Nuxt 3 全栈开发
+使用Nuxt开发的一个个人Blog程序
 
 ## 技术栈
+
 Nuxt3，Pinia，Element-plus，Tailwindcss，Mysql，Prisma，JWT...
 
-## Setup
+## 起步
 
-Make sure to install the dependencies:
+下载好源码后，执行命令安装依赖包。
 
 ```bash
 # npm
@@ -21,9 +23,9 @@ yarn install
 bun install
 ```
 
-## Development Server
+## 开发服务
 
-Start the development server on `http://localhost:3000`:
+开发服务端口 `http://localhost:9080`:
 
 ```bash
 # npm
@@ -39,9 +41,7 @@ yarn dev
 bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## 打包
 
 ```bash
 # npm
@@ -56,21 +56,3 @@ yarn build
 # bun
 bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
