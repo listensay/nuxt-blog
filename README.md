@@ -1,5 +1,5 @@
 # Nuxt 3 全栈开发
-使用Nuxt开发的一个个人Blog程序
+使用Nuxt开发的个人Blog程序
 
 ## 技术栈
 
