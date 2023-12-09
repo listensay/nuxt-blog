@@ -85,16 +85,6 @@ const submitForm = async (formEl) => {
     }
   })
 }
-
-const fileList = ref([])
-
-const handleRemove = (uploadFile, uploadFiles) => {
-  console.log(uploadFile, uploadFiles)
-}
-
-const handlePreview = (file) => {
-  console.log(file)
-}
 </script>
 
 <template>
@@ -107,33 +97,15 @@ const handlePreview = (file) => {
     >
       <el-form ref="refForm" :model="form" :rules="rules">
         <el-form-item label="图片名称" prop="name">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name" />
         </el-form-item>
         <el-form-item label="图片描述" prop="name">
-          <el-input v-model="form.photo"></el-input>
+          <el-input v-model="form.photo" />
         </el-form-item>
         <el-form-item label="图片分类" prop="name">
-          <el-input v-model="form.photo"></el-input>
+          <ImageUploadCategory v-model="form.category" />
         </el-form-item>
-        <el-form-item>
-          <el-upload
-            v-model:file-list="fileList"
-            class="upload-demo w-full"
-            action="/api/image/images"
-            name="images"
-            :headers="{ Authorization: useCookie('accessToken').value }"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            list-type="picture"
-          >
-            <el-button type="primary">Click to upload</el-button>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
-        </el-form-item>
+        <el-form-item label="图片上传" />
       </el-form>
 
       <template #footer>

@@ -2,7 +2,7 @@
 
 <template>
   <div class="login-layout">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

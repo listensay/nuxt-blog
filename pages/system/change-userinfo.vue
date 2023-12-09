@@ -100,7 +100,7 @@ onMounted(() => {})
         label-position="left"
       >
         <el-form-item label="头像" prop="avatar">
-          <AvatarImg v-model="userInfo.avatar"></AvatarImg>
+          <AvatarImg v-model="userInfo.avatar" />
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="userInfo.nickname" placeholder="请输入昵称" />
@@ -124,7 +124,7 @@ onMounted(() => {})
             }"
           >
             <div class="flex items-center mb-4">
-              <el-input v-model="profile.name" placeholder="名称"></el-input>
+              <el-input v-model="profile.name" placeholder="名称" />
               <el-select
                 v-model="profile.icon"
                 placeholder="Select"
@@ -141,7 +141,7 @@ onMounted(() => {})
                 v-model="profile.content"
                 class="mr-2"
                 placeholder="内容"
-              ></el-input>
+              />
               <el-button type="danger" @click.prevent="removeProfile(profile)"
                 >删除</el-button
               >

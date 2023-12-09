@@ -115,7 +115,7 @@ const handleCurrentChange = async (number) => {
         </div>
       </div>
       <div class="flex-1">
-        <AppEmpty></AppEmpty>
+        <AppEmpty />
       </div>
       <ImageCategoryForm
         v-model="categoryDialog"
