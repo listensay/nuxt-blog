@@ -8,8 +8,8 @@ export const useMainStore = defineStore('mainStore', {
   actions: {
     async fetchGetWebOptions() {
       try {
-        const result = await manAPI.getWebOptions()
-        this.seo = JSON.parse(result.data.seo)
+        // const result = await manAPI.getWebOptions()
+        // this.seo = JSON.parse(result.data.seo)
       } catch (error) {
         console.log(error)
       }

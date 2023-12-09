@@ -11,10 +11,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@element-plus/nuxt',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@nuxt/ui'
   ],
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,

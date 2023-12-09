@@ -1,3 +1,11 @@
+<script setup>
+useHead({
+  titleTemplate: (productCategory) => {
+    return productCategory ? `${productCategory} - 网站标题` : '网站标题'
+  }
+})
+</script>
+
 <template>
   <div>
     <NuxtLayout>

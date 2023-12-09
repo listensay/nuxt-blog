@@ -15,9 +15,11 @@
     "@element-plus/nuxt": "^1.0.6",
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.1.0",
+    "@nuxt/ui": "^2.11.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.9.4",
+    "@prisma/client": "5.6.0",
     "@types/bcryptjs": "^2.4.5",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/multer": "^1.4.11",
@@ -39,8 +41,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vue": "^3.3.7",
-    "vue-router": "^4.2.5",
-    "@prisma/client": "5.6.0"
+    "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
