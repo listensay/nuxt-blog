@@ -100,12 +100,14 @@ const submitForm = async (formEl) => {
           <el-input v-model="form.name" />
         </el-form-item>
         <el-form-item label="图片描述" prop="name">
-          <el-input v-model="form.photo" />
+          <el-input v-model="form.desc" />
         </el-form-item>
         <el-form-item label="图片分类" prop="name">
           <ImageUploadCategory v-model="form.category" />
         </el-form-item>
-        <el-form-item label="图片上传" />
+        <el-form-item label="图片上传">
+          <AvatarImg v-model="form.photo" />
+        </el-form-item>
       </el-form>
 
       <template #footer>
