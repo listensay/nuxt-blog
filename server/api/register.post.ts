@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 import Joi from 'joi'
 import Bcrypt from 'bcryptjs'
 import {

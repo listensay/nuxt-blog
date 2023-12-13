@@ -9,24 +9,21 @@ module.exports = {
     'plugin:nuxt/recommended',
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'prettier'
   ],
-  plugins: ['vue', '@typescript-eslint'],
+  plugins: ['vue', '@typescript-eslint', 'prettier'],
   rules: {
     'vue/multi-word-component-names': 'off',
     'no-console': 0,
     'vue/html-self-closing': [
-      'warn',
+      'error',
       {
-        // 没有子元素，自动使用闭合单标签
         html: {
-          void: 'never',
-          normal: 'always',
-          component: 'always'
-        },
-        svg: 'always',
-        math: 'always'
+          void: 'any'
+        }
       }
-    ]
+    ],
+    'prettier/prettier': 'error'
   }
 }
