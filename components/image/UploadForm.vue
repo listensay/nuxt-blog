@@ -72,7 +72,7 @@ const submitForm = async (formEl) => {
       }
 
       try {
-        const result = await imagesStore.fetchCreateImageCategory(form)
+        const result = await imagesStore.fetchCreateImage(form)
         if (result.success) {
           ElMessage.success('创建成功')
         }
@@ -99,14 +99,11 @@ const submitForm = async (formEl) => {
         <el-form-item label="图片名称" prop="name">
           <el-input v-model="form.name" />
         </el-form-item>
-        <el-form-item label="图片描述" prop="name">
-          <el-input v-model="form.desc" />
-        </el-form-item>
         <el-form-item label="图片分类" prop="name">
-          <ImageUploadCategory v-model="form.category" />
+          <ImageUploadCategory v-model="form.category_id" />
         </el-form-item>
         <el-form-item label="图片上传">
-          <AvatarImg v-model="form.photo" />
+          <ImageUpload v-model="form.url" />
         </el-form-item>
       </el-form>
 

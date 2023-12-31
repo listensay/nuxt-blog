@@ -12,6 +12,7 @@ const title = ref('')
 const currentRow = ref(null)
 const currentCategory = ref(null)
 const currentCategoryIndex = ref(0)
+currentCategory.value = imageCategory.value[0]
 
 // 添加分类
 const addCategory = () => {
@@ -115,7 +116,7 @@ const handleCurrentChange = async (number) => {
         </div>
       </div>
       <div class="flex-1">
-        <AppEmpty />
+        <ImageList v-model:category="currentCategory" />
       </div>
       <ImageCategoryForm
         v-model="categoryDialog"

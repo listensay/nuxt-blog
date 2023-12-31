@@ -1,8 +1,10 @@
 import { useImageCategoryAPI } from "~/service/module/images/categoty"
+import { useImageAPI } from "~/service/module/images/image"
 
 export const useImagesStore = defineStore('useImagesStore', {
   state: () => ({
     images: [],
+    imagesTotal: 0,
     imageCategory: [],
     imageCategoryTotal: 0
   }),
@@ -42,6 +44,26 @@ export const useImagesStore = defineStore('useImagesStore', {
       try {
         const result = await useImageCategoryAPI().delete(id)
         await this.fetchGetImagesCategory()
+        return result
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 获取图片列表
+    async fetchGetImages(id: string, pageNumber: number = 1, pageSize: number = 10) {
+      try {
+        const result = await useImageAPI().list(id, pageNumber, pageSize)
+        this.images = result.data
+        return result
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 创建图片
+    async fetchCreateImage(data: any) {
+      try {
+        const result = await useImageAPI().create(data)
+        await this.fetchGetImages(data.categoryId)
         return result
       } catch (error) {
         console.log(error)

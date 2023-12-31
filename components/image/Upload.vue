@@ -26,7 +26,7 @@ const beforeAvatarUpload = (rawFile) => {
   <div class="upload-img">
     <el-upload
       class="avatar-uploader border-[1px] rounded border-gray-200 overflow-hidden"
-      action="/api/image/images"
+      action="/api/upload/images"
       name="images"
       :headers="{ Authorization: useCookie('accessToken').value }"
       :show-file-list="false"

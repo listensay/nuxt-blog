@@ -1,7 +1,7 @@
 import {
   deleteImageCategory,
   getImageCategoryById
-} from '~/server/utils/prisma/imagesCategory'
+} from '~/server/utils/prisma/imageCategory'
 
 export default defineEventHandler(async (_event) => {
   const body = await readBody(_event)

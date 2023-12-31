@@ -81,8 +81,3 @@ export const getImageCategoryById = async (id: number) => {
     }
   })
 }
-
-export const addImage = async (data: any) => {
-  data.category_id = Number(data.category_id)
-  return await usePrisma.images.create({ data })
-}

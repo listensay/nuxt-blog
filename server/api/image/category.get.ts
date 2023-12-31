@@ -1,4 +1,4 @@
-import { getImageCategory } from '~/server/utils/prisma/imagesCategory'
+import { getImageCategory } from '~/server/utils/prisma/imageCategory'
 
 export default defineEventHandler(async (_event) => {
   const query = <any>getQuery(_event)
