@@ -115,7 +115,7 @@ const handleCurrentChange = async (number) => {
           />
         </div>
       </div>
-      <div class="flex-1">
+      <div class="flex-1 bg-slate-50">
         <ImageList v-model:category="currentCategory" />
       </div>
       <ImageCategoryForm

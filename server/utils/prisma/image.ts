@@ -7,6 +7,8 @@
  * @todo 添加分类ID查询
  */
 
+import { usePrisma } from '..'
+
 export const getImages = async (
   categoryId?: number,
   pageNumber: number = 1,

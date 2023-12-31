@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 用户表
 model User {
   id    Int     @id @default(autoincrement())
   username  String  @unique
@@ -17,20 +18,33 @@ model User {
   avatar String? @default("images/avatar.png")
   desc String?
   create_time DateTime? @default(now())
+  author Article[]
 }
 
+// 图片分类表
 model ImagesCategory {
   id    Int     @id @default(autoincrement())
   name  String  @unique
   create_time DateTime? @default(now())
-  images Images[] // 添加这一行
+  images Images[]
 }
 
+// 图片表
 model Images {
   id    Int     @id @default(autoincrement())
   name  String
   url String
   category ImagesCategory @relation(fields: [category_id], references: [id])
   category_id Int
+  create_time DateTime? @default(now())
+}
+
+// 文章表
+model Article {
+  id    Int     @id @default(autoincrement())
+  title  String
+  content String
+  author User @relation(fields: [author_id], references: [id])
+  author_id Int
   create_time DateTime? @default(now())
 }

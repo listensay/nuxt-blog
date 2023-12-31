@@ -1,3 +1,5 @@
+import { usePrisma } from '..'
+
 /**
  * @description 获取图片分类列表
  * @param pageNumber 分类页码
@@ -38,9 +40,17 @@ export const updateImageCategory = async (id: number, data: any) => {
  * @returns 分类信息
  */
 export const deleteImageCategory = async (id: number) => {
+  // 先删除所有引用这个 imagesCategory 的 images 记录
+  await usePrisma.images.deleteMany({
+    where: {
+      category_id: id
+    }
+  })
+
+  // 然后删除 imagesCategory 记录
   return await usePrisma.imagesCategory.delete({
     where: {
-      id: Number(id)
+      id
     }
   })
 }

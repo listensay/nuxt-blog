@@ -14,7 +14,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@element-plus/nuxt',
     '@nuxt/image',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    'nuxt-primevue',
+    'dayjs-nuxt'
   ],
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,
@@ -31,7 +33,10 @@ export default defineNuxtConfig({
     injectPosition: 'first',
     viewer: true
   },
-  css: ['@/assets/css/index.less'],
+  css: [
+    '@/assets/css/index.less',
+    'primevue/resources/themes/lara-light-green/theme.css'
+  ],
   devServer: {
     port: 9088
   }

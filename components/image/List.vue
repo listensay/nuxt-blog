@@ -19,9 +19,17 @@ watch(
 
 <template>
   <div class="image-list">
-    category {{ category }} images {{ images }}
     <template v-if="images.length != 0">
-      <div>123</div>
+      <div class="flex p-4">
+        <div
+          v-for="image in images"
+          :key="image.id"
+          class="w-1/3 m-4 shadow-sm"
+        >
+          <NuxtImg :src="image.url" class="w-full" />
+          <div class="p-2 bg-white">{{ image.name }}</div>
+        </div>
+      </div>
     </template>
     <template v-else>
       <AppEmpty />

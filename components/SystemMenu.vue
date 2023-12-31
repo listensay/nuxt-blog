@@ -5,7 +5,12 @@ const currentTab = route.fullPath.split('/')
 
 <template>
   <div class="system-menu w-64 bg-white px-3 py-4 rounded min-h-[800px]">
-    <el-button type="primary" class="w-full" size="large" icon="Edit"
+    <el-button
+      type="primary"
+      class="w-full"
+      size="large"
+      icon="Edit"
+      @click="navigateTo('./post-article')"
       >写文章</el-button
     >
     <el-menu
