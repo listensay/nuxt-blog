@@ -1,6 +1,7 @@
 <script setup>
-import Editor from 'primevue/editor'
+import { QuillEditor } from '@vueup/vue-quill'
 import { useSystemStore } from '~/store/module/system'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 const systemStore = useSystemStore()
 
@@ -58,7 +59,9 @@ const resetForm = (formEl) => {
       </el-form-item>
 
       <el-form-item label="文章内容" prop="content">
-        <Editor v-model="form.content" editor-style="height: 320px" />
+        <ClientOnly>
+          <QuillEditor theme="snow" />
+        </ClientOnly>
       </el-form-item>
 
       <el-form-item>

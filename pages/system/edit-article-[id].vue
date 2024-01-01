@@ -1,6 +1,7 @@
 <script setup>
-import Editor from 'primevue/editor'
+import { QuillEditor } from '@vueup/vue-quill'
 import { useSystemStore } from '~/store/module/system'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 const systemStore = useSystemStore()
 const route = useRoute()
@@ -51,6 +52,7 @@ const resetForm = (formEl) => {
 
 <template>
   <div class="systeam-article-post bg-white h-full rounded-md p-4">
+    {{ form.content }}
     <el-form
       ref="formRef"
       :model="form"
@@ -64,9 +66,10 @@ const resetForm = (formEl) => {
       </el-form-item>
 
       <el-form-item label="文章内容" prop="content">
-        <Editor v-model="form.content" editor-style="height: 320px" />
+        <ClientOnly>
+          <QuillEditor theme="snow" />
+        </ClientOnly>
       </el-form-item>
-
       <el-form-item>
         <el-button>草稿</el-button>
         <el-button type="primary" @click="submitForm(formRef)">
