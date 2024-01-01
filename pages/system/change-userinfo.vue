@@ -11,7 +11,8 @@ const userInfo = reactive({
   email: '',
   desc: '',
   profile: [],
-  avatar: ''
+  avatar: '',
+  password: ''
 })
 
 const userStore = useUserStore()
@@ -31,7 +32,11 @@ const rules = reactive({
   ],
   email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
   desc: [{ required: true, message: '请输入个人介绍', trigger: 'blur' }],
-  profile: [{ required: true, message: '请输入档案', trigger: 'blur' }]
+  profile: [{ required: true, message: '请输入档案', trigger: 'blur' }],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '长度6到20位', trigger: 'blur' }
+  ]
 })
 
 const submitForm = async (formEl) => {
@@ -152,6 +157,10 @@ onMounted(() => {})
               >新增社交档案</el-button
             >
           </el-form-item>
+        </el-form-item>
+
+        <el-form-item label="新密码" prop="password">
+          <el-input v-model="userInfo.password" placeholder="请输入新密码" />
         </el-form-item>
 
         <el-form-item>

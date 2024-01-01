@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import Bcrypt from 'bcryptjs'
 import { updateUser } from '~/server/utils/prisma/user'
 
 export default defineEventHandler(async (event) => {
@@ -23,7 +24,8 @@ export default defineEventHandler(async (event) => {
     email: Joi.string().email().required(),
     desc: Joi.string().min(1).max(18).required(),
     avatar: Joi.string().required(),
-    profile: Joi.string().required()
+    profile: Joi.string().required(),
+    password: Joi.string().min(6).max(18).required()
   })
 
   try {
@@ -48,13 +50,17 @@ export default defineEventHandler(async (event) => {
       return errorRes('邮箱已存在', 400)
     }
 
+    // 加密密码
+    const password = Bcrypt.hashSync(body.password, 10)
+
     // 更新数据
     const user = await updateUser(uid, {
       nickname: body.nickname,
       email: body.email,
       desc: body.desc,
       avatar: body.avatar,
-      profile: body.profile
+      profile: body.profile,
+      password
     })
 
     if (!user) {

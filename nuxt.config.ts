@@ -16,7 +16,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     'nuxt-primevue',
-    'dayjs-nuxt'
+    'dayjs-nuxt',
+    '@ant-design-vue/nuxt'
   ],
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,

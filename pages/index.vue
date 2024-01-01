@@ -8,6 +8,8 @@
     <el-button type="" @click="navigateTo({ path: '/system' })"
       >控制台
     </el-button>
+
+    <ArticleList />
   </div>
 </template>
 
