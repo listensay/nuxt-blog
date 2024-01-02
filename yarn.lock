@@ -395,6 +395,11 @@
   resolved "https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.6.1.tgz"
   integrity sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==
 
+"@editorjs/editorjs@^2.28.2":
+  version "2.28.2"
+  resolved "https://registry.npmmirror.com/@editorjs/editorjs/-/editorjs-2.28.2.tgz#a265c7d10e83adef81813e4dc0f01fe3464dff50"
+  integrity sha512-g6V0Nd3W9IIWMpvxDNTssQ6e4kxBp1Y0W4GIf8cXRlmcBp3TUjrgCYJQmNy3l2a6ZzhyBAoVSe8krJEq4g7PQw==
+
 "@egoist/tailwindcss-icons@^1.4.0":
   version "1.7.1"
   resolved "https://registry.npmmirror.com/@egoist/tailwindcss-icons/-/tailwindcss-icons-1.7.1.tgz"

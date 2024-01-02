@@ -1,5 +1,4 @@
 <script setup>
-import { QuillEditor } from '@vueup/vue-quill'
 import { useSystemStore } from '~/store/module/system'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
@@ -66,9 +65,7 @@ const resetForm = (formEl) => {
       </el-form-item>
 
       <el-form-item label="文章内容" prop="content">
-        <ClientOnly>
-          <QuillEditor theme="snow" />
-        </ClientOnly>
+        <div />
       </el-form-item>
       <el-form-item>
         <el-button>草稿</el-button>
