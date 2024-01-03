@@ -16,8 +16,14 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     'dayjs-nuxt',
-    '@ant-design-vue/nuxt'
+    '@ant-design-vue/nuxt',
+    'nuxt3-editorjs'
   ],
+  vite: {
+    optimizeDeps: {
+      include: ['@editorjs/editorjs']
+    }
+  },
   runtimeConfig: {
     tokenSecret: process.env.TOKEN_SECRET,
     public: {
