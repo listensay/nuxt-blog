@@ -7,44 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 用户表
 model User {
-  id    Int     @id @default(autoincrement())
-  username  String  @unique
-  nickname String
-  email String?  @unique
-  password String
-  profile String? @default("[]")
-  avatar String? @default("images/avatar.png")
-  desc String?
+  id          Int       @id @default(autoincrement())
+  username    String    @unique
+  email       String?   @unique
+  password    String
+  profile     String?   @default("[]")
   create_time DateTime? @default(now())
-  author Article[]
+  nickname    String
+  avatar      String?   @default("images/avatar.png")
+  desc        String?
+  author      Article[]
 }
 
-// 图片分类表
 model ImagesCategory {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
   create_time DateTime? @default(now())
-  images Images[]
+  images      Images[]
 }
 
-// 图片表
 model Images {
-  id    Int     @id @default(autoincrement())
-  name  String
-  url String
-  category ImagesCategory @relation(fields: [category_id], references: [id])
+  id          Int            @id @default(autoincrement())
+  name        String
+  url         String
   category_id Int
-  create_time DateTime? @default(now())
+  create_time DateTime?      @default(now())
+  category    ImagesCategory @relation(fields: [category_id], references: [id])
+
+  @@index([category_id], map: "Images_category_id_fkey")
 }
 
-// 文章表
 model Article {
-  id    Int     @id @default(autoincrement())
-  title  String
-  content String
-  author User @relation(fields: [author_id], references: [id])
-  author_id Int
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String
+  author_id   Int
   create_time DateTime? @default(now())
+  author      User      @relation(fields: [author_id], references: [id])
+
+  @@index([author_id], map: "Article_author_id_fkey")
 }

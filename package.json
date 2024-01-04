@@ -47,10 +47,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.28.2",
     "@pinia/nuxt": "^0.5.1",
-    "element-plus": "^2.4.2",
-    "nuxt-editorjs": "^1.0.4",
-    "nuxt3-editorjs": "^1.0.0"
+    "element-plus": "^2.4.2"
   }
 }

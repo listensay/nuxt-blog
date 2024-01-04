@@ -16,8 +16,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     'dayjs-nuxt',
-    '@ant-design-vue/nuxt',
-    'nuxt3-editorjs'
+    '@ant-design-vue/nuxt'
   ],
   vite: {
     optimizeDeps: {

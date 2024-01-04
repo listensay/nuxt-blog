@@ -41,19 +41,6 @@ const resetForm = (formEl) => {
   if (!formEl) return
   formEl.resetFields()
 }
-
-// config for onReady at this not that config
-const onReady = (args) => {
-  console.log('on ready', args)
-}
-// config for onChange at this not that config
-const onChange = (args) => {
-  console.log("Now I know that Editor's content changed!", args)
-}
-
-const onInitialized = (NuxtEditorJs) => {
-  console.log(NuxtEditorJs)
-}
 </script>
 
 <template>
@@ -71,16 +58,7 @@ const onInitialized = (NuxtEditorJs) => {
       </el-form-item>
 
       <el-form-item label="文章内容" prop="content">
-        <div>
-          {{ form.content }}
-          <NuxtEditorJs
-            v-model:modelValue="form.content"
-            :holder="holder"
-            :on-ready="onReady"
-            :on-change="onChange"
-            :initialized="onInitialized"
-          />
-        </div>
+        <div />
       </el-form-item>
 
       <el-form-item>

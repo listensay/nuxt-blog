@@ -5,17 +5,20 @@ const currentTab = route.fullPath.split('/')
 
 <template>
   <div class="system-menu w-64 bg-white px-3 py-4 rounded min-h-[800px]">
-    <el-button
-      type="primary"
-      class="w-full"
-      size="large"
-      icon="Edit"
-      @click="navigateTo('./post-article')"
-      >写文章</el-button
-    >
+    <div class="pb-4 border-b-[1px] border-zinc-100">
+      <el-button
+        type="primary"
+        class="w-full"
+        size="large"
+        icon="Edit"
+        @click="navigateTo('./post-article')"
+        >写文章</el-button
+      >
+    </div>
+
     <el-menu
       :default-active="'./' + currentTab[currentTab.length - 1]"
-      class="pt-4"
+      class="pt-2"
       router
     >
       <el-menu-item index="./userinfo">
