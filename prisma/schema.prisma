@@ -7,6 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Article {
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String
+  author_id   Int
+  create_time DateTime? @default(now())
+  category_id Int       @default(1)
+  cover       String    @default("")
+  description String    @default("")
+  keywords    String    @default("")
+  summary     String    @default("")
+  User        User      @relation(fields: [author_id], references: [id])
+
+  @@index([author_id], map: "Article_author_id_fkey")
+}
+
+model Images {
+  id             Int            @id @default(autoincrement())
+  name           String
+  url            String
+  category_id    Int
+  create_time    DateTime?      @default(now())
+  ImagesCategory ImagesCategory @relation(fields: [category_id], references: [id])
+
+  @@index([category_id], map: "Images_category_id_fkey")
+}
+
+model ImagesCategory {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  create_time DateTime? @default(now())
+  Images      Images[]
+}
+
 model User {
   id          Int       @id @default(autoincrement())
   username    String    @unique
@@ -17,34 +51,15 @@ model User {
   nickname    String
   avatar      String?   @default("images/avatar.png")
   desc        String?
-  author      Article[]
+  Article     Article[]
 }
 
-model ImagesCategory {
+model Category {
   id          Int       @id @default(autoincrement())
   name        String    @unique
+  cover       String    @default("")
+  description String    @default("")
+  keywords    String    @default("")
+  summary     String    @default("")
   create_time DateTime? @default(now())
-  images      Images[]
-}
-
-model Images {
-  id          Int            @id @default(autoincrement())
-  name        String
-  url         String
-  category_id Int
-  create_time DateTime?      @default(now())
-  category    ImagesCategory @relation(fields: [category_id], references: [id])
-
-  @@index([category_id], map: "Images_category_id_fkey")
-}
-
-model Article {
-  id          Int       @id @default(autoincrement())
-  title       String
-  content     String
-  author_id   Int
-  create_time DateTime? @default(now())
-  author      User      @relation(fields: [author_id], references: [id])
-
-  @@index([author_id], map: "Article_author_id_fkey")
 }

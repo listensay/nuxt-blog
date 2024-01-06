@@ -6,7 +6,6 @@
 .cache
 dist
 public/images
-prisma/migrations
 
 # Node dependencies
 node_modules
